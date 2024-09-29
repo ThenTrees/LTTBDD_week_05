@@ -4,7 +4,23 @@ import BackgroundHeaderIcon from "../assets/images/Image20.png";
 import emailIcon from "../assets/images/email.png";
 import lockIcon from "../assets/images/lock.png";
 import { useState } from "react";
-export default Screen_03 = ({navigation}) => {
+export default Screen_03 = ({navigation, route}) => {
+
+    const { users } = route.params || {users: []};
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = () => {
+        const userFound = users.find(user => user.email === email && user.password === password);
+        if(userFound){
+            alert(`Welcome, ${userFound.userName}!`);
+            navigation.navigate('product-detail');
+        } else {
+            alert('Email hoặc password không hợp lệ');
+        }
+    };
+
+
     return (
         <View style={styles.container_full}>
             <Image style={{width: '100%'}} source={BackgroundHeaderIcon}/>
@@ -17,18 +33,18 @@ export default Screen_03 = ({navigation}) => {
                     <Text style={{fontSize:18, fontWeight: 700}}>Email</Text>
                     <View style={styles.input}>
                         <Image style={styles.iconBody} source={emailIcon}/>
-                        <TextInput  keyboardType="email-address" style={styles.inputBody} placeholder="Enter email" placeholderTextColor="#ccc"/>
+                        <TextInput onChangeText={setEmail} keyboardType="email-address" style={styles.inputBody} placeholder="Enter email" placeholderTextColor="#ccc"/>
                     </View>
                     
 
                     <Text style={{fontSize:18, fontWeight: 700, marginTop: 20}}>Password</Text>
                     <View style={styles.input}>
                         <Image style={styles.iconBody} source={lockIcon}/>
-                        <TextInput keyboardType="visible-password" secureTextEntry={true}  style={styles.inputBody} placeholder="Enter password" placeholderTextColor="#ccc"/>
+                        <TextInput onChangeText={setPassword} keyboardType="visible-password" secureTextEntry={true}  style={styles.inputBody} placeholder="Enter password" placeholderTextColor="#ccc"/>
                         {/* <Image style={[styles.iconBody,{left: 330}]} source={eyeIcon}/> */}
                     </View>
                 </View>
-                <TouchableOpacity style={styles.btnContinue} onPress={()=>{navigation.navigate('product-detail')}}>
+                <TouchableOpacity style={styles.btnContinue} onPress={handleLogin}>
                         <Text style={{fontSize: 16, color: '#fff', fontWeight: 500}}>Login</Text>
                     </TouchableOpacity>
             </View>

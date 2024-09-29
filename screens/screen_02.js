@@ -7,8 +7,28 @@ import emailIcon from "../assets/images/email.png";
 import lockIcon from "../assets/images/lock.png";
 import eyeIcon from "../assets/images/eye.png";
 import { useState } from "react";
+
+
 export default Screen_02 = ({navigation}) => {
-    const [isChecked, setChecked] = useState(false);
+    const [agreeTerms, setAgreeTerms] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [users, setUsers] = useState([]);
+
+    const handleSignup = () => {
+        // if(agreeTerms){
+            // alert(`You have ${agreeTerms}`)
+        if(userName && email && password && agreeTerms){
+            const newUser = {userName, email, password};
+            setUsers([...users,newUser]);
+            alert('Đăng ký thành công!');
+            navigation.navigate('login',{users:[...users,newUser]});
+        } else{
+            alert('Vui lòng tích vào ô');
+        }
+    };
+
     return (
         <View style={styles.container}>
             {/* back icon */}
@@ -26,23 +46,23 @@ export default Screen_02 = ({navigation}) => {
                 <View>
                     <View style={styles.input}>
                         <Image style={styles.iconBody} source={userIcon}/>
-                        <TextInput style={styles.inputBody} placeholder="Enter your user name" placeholderTextColor="#ccc"/>
+                        <TextInput onChangeText={(text) => setUserName(text)} style={styles.inputBody} placeholder="Enter your user name" placeholderTextColor="#ccc"/>
                     </View>
                     <View style={styles.input}>
                         <Image style={styles.iconBody} source={emailIcon}/>
-                        <TextInput  keyboardType="email-address" style={styles.inputBody} placeholder="Enter your email address" placeholderTextColor="#ccc"/>
+                        <TextInput onChangeText={(text) => setEmail(text)} keyboardType="email-address" style={styles.inputBody} placeholder="Enter your email address" placeholderTextColor="#ccc"/>
                     </View>
                     <View style={styles.input}>
                         <Image style={styles.iconBody} source={lockIcon}/>
-                        <TextInput keyboardType="visible-password" secureTextEntry={true}  style={styles.inputBody} placeholder="Enter your password" placeholderTextColor="#ccc"/>
-                        {/* <Image style={[styles.iconBody,{left: 330}]} source={eyeIcon}/> */}
+                        <TextInput onChangeText={(text) => setPassword(text)} keyboardType="visible-password" secureTextEntry={true}  style={styles.inputBody} placeholder="Enter your password" placeholderTextColor="#ccc"/>
+                        
                     </View>
                     <View style={styles.term}>
-                        <Checkbox  color={isChecked ? '#4630EB' : undefined} style={styles.checkbox} value={isChecked} onValueChange={setChecked}  />
+                        <Checkbox  color={agreeTerms ? '#4630EB' : undefined} style={styles.checkbox} value={agreeTerms} onValueChange={setAgreeTerms}  />
                         <Text style={{marginLeft: 5}}>I agree with</Text>
                         <Text style={{color: 'blue', marginLeft: 5, fontWeight: 500}}>Terms & Conditions</Text>
                     </View>
-                    <TouchableOpacity style={styles.btnContinue} onPress={()=>{navigation.navigate('product-detail')}}>
+                    <TouchableOpacity style={styles.btnContinue} onPress={handleSignup}>
                         <Text style={{fontSize: 16, color: '#fff', fontWeight: 500}}>Continue</Text>
                     </TouchableOpacity>
                 </View>
