@@ -10,92 +10,103 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { useState } from "react";
 
 
-export default Screen_04 = ({navigation}) => {
+export default Screen_04 = ({ navigation }) => {
     const [chooseSize, setChooseSize] = useState('M');
     const sizes = ['XS', 'S', 'M', 'L', 'XL'];
+    const images = [image1, image2, DonutImage, image4]
     const [quantity, setQuantity] = useState(2);
     const [totalMoney, setTotalMoney] = useState(0);
+    const [imageBanner, setImageBanner] = useState(DonutImage);
     const price = 2.99;
     return (
         <View style={styles.container}>
             {/* back icon */}
             <View style={styles.header}>
-                <TouchableOpacity onPress={()=>{ navigation.navigate('home') }}>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
                     <AntDesign name="left" size={24} color="#708090" />
                 </TouchableOpacity>
-                <Text style={{fontSize: 16, fontWeight: 600, marginLeft: 15}}>Product name</Text>
+                <Text style={{ fontSize: 16, fontWeight: 600, marginLeft: 15 }}>Product name</Text>
             </View>
-                {/* body */}
+            {/* body */}
             <View>
-                <Image style={{width: '100%', borderRadius: 10, marginTop: 5}} source={DonutImage}/>
+                <Image style={{ width: '100%', height: 200, borderRadius: 10, marginTop: 5 }} source={imageBanner} />
                 <View style={styles.listImage}>
-                    <Image source={image1}/>    
-                    <Image  source={image2}/>    
-                    <Image  source={image3}/>    
-                    <Image  source={image4}/>    
+                    <TouchableOpacity onPress={() => { setImageBanner(image1) }}>
+                        <Image source={image1} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => { setImageBanner(image2) }}>
+                        <Image source={image2} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { setImageBanner(DonutImage) }}>
+                        <Image source={image3} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { setImageBanner(image4) }}>
+                        <Image source={image4} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.tag}>
-                    <Text style={{fontSize: 24, fontWeight: 'bold', marginBottom: 10, color: '#23C8D4'}}>${price}</Text>
-                    <View style={{ backgroundColor: '#FFE4E1', width: 100,height: 20, borderRadius: 20, justifyContent: 'center', alignItems: 'center', opacity: '0.5'}}>
-                        <Text style={{color: '#FF1493', paddingBottom:4, opacity: 1}}>Buy 1 get 1</Text>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10, color: '#23C8D4' }}>${price}</Text>
+                    <View style={{ backgroundColor: '#FFE4E1', width: 100, height: 20, borderRadius: 20, justifyContent: 'center', alignItems: 'center', opacity: '0.5' }}>
+                        <Text style={{ color: '#FF1493', paddingBottom: 4, opacity: 1 }}>Buy 1 get 1</Text>
                     </View>
                 </View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <View>
-                        <Text style={{fontSize: 20, fontWeight: 'bold', marginBottom: 6}}>Product name</Text>
-                        <Text style={{color: '#ddd'}}>Occaecat est deserumt tempor offici</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 6 }}>Product name</Text>
+                        <Text style={{ color: '#ddd' }}>Occaecat est deserumt tempor offici</Text>
                     </View>
-                    <View style={{flexDirection: 'row', width: 40, columnGap: 5}}>
-                        <Image source={starIcon}/>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>4.5</Text>
+                    <View style={{ flexDirection: 'row', width: 40, columnGap: 5 }}>
+                        <Image source={starIcon} />
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>4.5</Text>
                     </View>
                 </View>
-                    <Text style={{fontSize: 16,fontWeight: 500, color: '#708090', marginTop: 20}}>Size</Text>
+                <Text style={{ fontSize: 16, fontWeight: 500, color: '#708090', marginTop: 20 }}>Size</Text>
                 <View style={styles.listSize}>
-                {sizes.map((size) => (
-                    <TouchableOpacity
-                        key={size}
-                        style={[
-                            styles.size,
-                            chooseSize === size && styles.selectedButton, // Highlight the selected size
-                        ]}
-                        onPress={() => setChooseSize(size)} // Update selected size
+                    {sizes.map((size) => (
+                        <TouchableOpacity
+                            key={size}
+                            style={[
+                                styles.size,
+                                chooseSize === size && styles.selectedButton, // Highlight the selected size
+                            ]}
+                            onPress={() => setChooseSize(size)} // Update selected size
                         >
-                        <Text style={styles.textSize}>{size}</Text>
-                    </TouchableOpacity>
-                ))}
+                            <Text style={styles.textSize}>{size}</Text>
+                        </TouchableOpacity>
+                    ))}
                 </View>
-                <Text style={{fontSize: 16,fontWeight: 500, color: '#708090', marginTop: 20, marginBottom: 10}}>Quantity</Text>
-                <View style={{flexDirection: 'row', columnGap: 10, justifyContent: 'space-between', alignItems: 'center'}}>
-                    <View style={{flexDirection: 'row', columnGap: 10, justifyContent: 'flex-start'}}>
-                        <TouchableOpacity onPress={()=>{setQuantity(quantity-1)}}>
+                <Text style={{ fontSize: 16, fontWeight: 500, color: '#708090', marginTop: 20, marginBottom: 10 }}>Quantity</Text>
+                <View style={{ flexDirection: 'row', columnGap: 10, justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', columnGap: 10, justifyContent: 'flex-start' }}>
+                        <TouchableOpacity onPress={() => { setQuantity(quantity - 1) }}>
                             <AntDesign name="minuscircleo" size={24} color="black" />
                         </TouchableOpacity>
-                            <Text style={{fontSize: 16, fontWeight: 500, color: '#708090'}}>{quantity}</Text>
-                        <TouchableOpacity onPress={()=>setQuantity(quantity+1)}>
+                        <Text style={{ fontSize: 16, fontWeight: 500, color: '#708090' }}>{quantity}</Text>
+                        <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
                             <AntDesign name="pluscircleo" size={24} color="black" />
                         </TouchableOpacity>
                     </View>
-                    <View style={{flexDirection: 'row', columnGap: 10, justifyContent: 'flex-end'}}>
-                        <Text style={{fontSize: 14, color: '#708090'}}>Total</Text>
-                        <Text style={{fontSize: 16, color: '#000', fontWeight: 700}}>${price* quantity}</Text>
+                    <View style={{ flexDirection: 'row', columnGap: 10, justifyContent: 'flex-end' }}>
+                        <Text style={{ fontSize: 14, color: '#708090' }}>Total</Text>
+                        <Text style={{ fontSize: 16, color: '#000', fontWeight: 700 }}>${(price * quantity).toFixed(2)}</Text>
                     </View>
                 </View>
                 <View style={styles.line}></View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <Text style={{fontSize:16, fontWeight: 700}}>Size guide</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={{ fontSize: 16, fontWeight: 700 }}>Size guide</Text>
                     <AntDesign name="right" size={18} color="#ccc" />
                 </View>
                 <View style={styles.line}></View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <Text style={{fontSize:16, fontWeight: 700}}>Reviews (99)</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={{ fontSize: 16, fontWeight: 700 }}>Reviews (99)</Text>
                     <AntDesign name="right" size={18} color="#ccc" />
                 </View>
                 <View style={styles.line}></View>
-                <TouchableOpacity onPress={()=>{alert('add to cart is successfully')}}>
+                <TouchableOpacity onPress={() => { alert('add to cart is successfully') }}>
                     <View style={styles.btnAdd2Cart}>
                         <AntDesign name="shoppingcart" size={24} color="#fff" />
-                        <Text style={{color: '#fff', fontWeight: 600}}>Add to Cart</Text>
+                        <Text style={{ color: '#fff', fontWeight: 600 }}>Add to Cart</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -111,12 +122,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         backgroundColor: '#fff',
     },
-    header:{
+    header: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
     },
-    listImage:{
+    listImage: {
         marginTop: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -124,28 +135,28 @@ const styles = StyleSheet.create({
     },
     tag: {
         flexDirection: 'row',
-        justifyContent:'flex-start',
+        justifyContent: 'flex-start',
         columnGap: 10,
         alignItems: 'center',
     },
-    listSize:{
+    listSize: {
         marginVertical: 10,
         flexDirection: 'row',
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         width: 150,
         marginBottom: 20,
-        
+
     },
-    size:{
+    size: {
         borderWidth: 1,
         borderColor: '#ccc',
         paddingHorizontal: 8,
         paddingVertical: 6,
         width: 40,
-        height:30,
+        height: 30,
         alignItems: 'center',
         justifyContent: 'center',
-        
+
     },
     textSize: {
         color: '#ccc',
@@ -153,13 +164,13 @@ const styles = StyleSheet.create({
     selectedButton: {
         backgroundColor: '#23C8D4', // Change color for selected size
     },
-    line:{
+    line: {
         width: '100%',
         height: 1,
         backgroundColor: '#eee',
         marginVertical: 10,
     },
-    btnAdd2Cart:{
+    btnAdd2Cart: {
         flex: 1,
         backgroundColor: '#23C8D4',
         flexDirection: 'row',

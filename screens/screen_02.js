@@ -42,7 +42,7 @@ export default Screen_02 = ({navigation}) => {
                         <Text style={{marginLeft: 5}}>I agree with</Text>
                         <Text style={{color: 'blue', marginLeft: 5, fontWeight: 500}}>Terms & Conditions</Text>
                     </View>
-                    <TouchableOpacity style={styles.btnContinue} onPress={()=>{navigation.navigate('home')}}>
+                    <TouchableOpacity style={styles.btnContinue} onPress={()=>{navigation.navigate('product-detail')}}>
                         <Text style={{fontSize: 16, color: '#fff', fontWeight: 500}}>Continue</Text>
                     </TouchableOpacity>
                 </View>
